@@ -111,8 +111,16 @@
 ##### 获得创世文化
     curl -s https://rpc.constantine-1.archway.tech/genesis |jq -r .result.genesis > ${HOME}/.archway/config/genesis.json
     
-#####     
+##### 启动节点
+    目前需要标志跳过187340才能正确同步节点：
+    archwayd start --x-crisis-skip-assert-invariants --unsafe-skip-upgrades 187340
+    
+    或者直接从该特定块同步
+    archwayd start --x-crisis-skip-assert-invariants --halt-height 187341
 
+##### 检查同步情况
+    archwayd status 2>&1 | jq .SyncInfo
+<img width="534" alt="微信截图_20230329165245" src="https://user-images.githubusercontent.com/100336530/228716420-ee7934ef-52fd-4cdf-88d1-180e2eecca0d.png">
 
 
 
