@@ -122,12 +122,27 @@
     archwayd status 2>&1 | jq .SyncInfo
 <img width="534" alt="微信截图_20230329165245" src="https://user-images.githubusercontent.com/100336530/228716420-ee7934ef-52fd-4cdf-88d1-180e2eecca0d.png">
 
+## 成为验证者
+### 创建验证器
+    节点需完成同步才能操作，如下命令返回FALSE，则节点已同步
+    curl -s $NODE/status | jq .result.sync_info.catching_up
+    
+    创建验证器最小数量1000000，检查钱包余额
+    ADDRESS=<your-wallet-address>
+    archwayd q bank balances $ADDRESS
 
-
-
-
-
-
+### 创建验证器
+    archwayd tx staking create-validator \
+    --amount=1000000uconst \
+    --pubkey=$(archwayd tendermint show-validator) \
+    --moniker=$MONIKER \
+    --chain-id=constantine-1 \
+    --commission-rate="0.01" \
+    --commission-max-rate="0.10" \
+    --commission-max-change-rate="0.01" \
+    --min-self-delegation=1 \
+    --fees=200uconst \
+    --from=$WALLET \
 
 
 
