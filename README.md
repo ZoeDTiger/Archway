@@ -143,30 +143,49 @@
     --min-self-delegation=1 \
     --fees=5000uconst \
     --from=$WALLET
+<img width="857" alt="微信截图_20230330112130" src="https://user-images.githubusercontent.com/100336530/228720322-795bf2f0-4ee0-4047-a272-f23da3ec586f.png">
 
+## 常用命令
+##### 解除监禁
+    archwayd tx slashing unjail <ValidatorAddress> --chain-id=constantine-1 --from=<your-wallet-name>
 
+##### 修改打开的文件数
+    Linux 每个进程可以打开的默认文件数为1024，打开的次数超过这个数量，就会导致进程崩溃
+    ulimit -n 4096
 
+##### 检查共识
+    NODE=http://localhost:26657
+    curl -s $NODE/consensus_state  | jq '.result.round_state.height_vote_set[0].prevotes_bit_array'
 
+##### 链接PEERS
+    curl -s $NODE/net_info | jq -r '.result.peers[] | "\(.node_info.id)@\(.remote_ip):\(.node_info.listen_addr | split(":")[2])"' | wc -l
 
+##### JAIL，TOMBSTONED，START_HEIGHT，INDEX_OFFSET
+    archwayd q slashing signing-info $(archwayd tendermint show-validator)
 
+##### 投票
+    archwayd tx gov vote <PROPOSAL_ID> <yes|no> --from $WALLET --fees 200uconst -y
 
+##### 检查所有投票的提案
+    archwayd q gov proposals --voter <ValidatorAddress>
+    
+##### 编辑验证器
+    archwayd tx staking edit-validator --website="<YOUR_WEBSITE>" --details="<YOUR_DESCRIPTION>" --moniker="<YOUR_NEW_MONIKER>" --from =$WALLET --fees 5000uconst
 
+##### 增加担保
+    archwayd tx staking delegate <ValidatorAddress> <TOKENS_COUNT>uconst--from $WALLET --fees 5000uconst -y
 
+##### 取消委托
+    archwayd tx staking unbond <ValidatorAddress> <TOKENS_COUNT>uconst --from $WALLET --fees 5000uconst -y
 
+##### 发送代币
+    archwayd tx bank send $WALLET <WALLET_TO> <TOKENS_COUNT>uconst --fees 5000uconst --gas auto
 
+##### 所有活跃验证者列表
+    archwayd q staking validators -o json --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_BONDED")' | jq -r '.tokens + " - " + .description.moniker' | sort -gr | nl
 
-
-
-
-
-
-
-
-
-
-
-
-
+##### 所有不活跃的验证者列表
+    archwayd q staking validators -o json --limit=1000 | jq '.validators[] | select(.status=="BOND_STATUS_UNBONDED")' | jq -r '.tokens + " - " + .description.moniker' | sort -gr | nl
 
 
 
