@@ -61,16 +61,57 @@
 <img width="475" alt="微信截图_20230329155816" src="https://user-images.githubusercontent.com/100336530/228712950-5728d10e-aef2-48df-a107-9fec6bb3affa.png">
 
 ### 节点配置
+#### 更改端口
+    NODES_NUM=“5”
+    sed -i.bak -e "\ 
+    s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$((NODES_NUM+26))658\"%; \ 
+    s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://0.0.0.0:$((NODES_NUM+26))657\"%; \ 
+    s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$((NODES_NUM+6))060\"%; \ 
+    s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$((NODES_NUM+26))656\"%; \ 
+    s%^external_address = \"\"%external_address = \"`echo $(wget -qO- eth0.me):$((NODES_NUM+26))656`\"%; \ 
+    s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$((NODES_NUM+26))660\"%" $HOME/.archway/config/config.toml
 
+    sed -i.bak -e "\ 
+    s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$((NODES_NUM+1))317\" %; \ 
+    s%^address = \":8080\"%address = \":$((NODES_NUM+8))080\"%; \ 
+    s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$((NODES_NUM+9))090\"%; \ 
+    s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$((NODES_NUM+9))091 \"% " $HOME /.archway/config/app.toml
+    
+    echo "export NODE=http://localhost:$((NODES_NUM+26))657" >> $HOME/.bash_profile && \
+    source $HOME/.bash_profile && \
+    archwayd config node $NODE
 
+#### 内存优化
+    indexer="null" && \
+    min_retain_blocks=1 && \
+    snapshot_interval="100" && \
+    pruning="custom" && \
+    pruning_keep_recent="100" && \
+    pruning_keep_every="0" && \
+    pruning_interval="10" && \
+    min_retain_blocks="1" && \
+    inter_block_cache="false"
 
+    sed -i.bak -e "s/^indexer *=.*/indexer = \"$indexer\"/"  $HOME/.archway/config/config.toml && \
+    sed -i.bak -e "s/^min-retain-blocks *=.*/min-retain-blocks = \"$min_retain_blocks\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^snapshot -interval *=.*/snapshot-interval = \"$snapshot_interval\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^pruning *=.*/pruning = \"$pruning\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^min-retain-blocks *=.*/min-retain-blocks = \"$min_retain_blocks\"/"  $HOME/.archway/config/app.toml && \
+    sed -i.bak -e "s/^inter-block-cache *=.*/inter-block-cache = \"$inter_block_cache\"/"  $HOME/.archway/config/app.toml
 
+#### 配置种子节点与对等对节
+    SEEDS="5c10d3d84adb970474eff3c9b5d8fe50fd2dbbfb@144.76.18.199:26656,802993601906fae95a19e96f2e8bd538b0d209d5@35.222.155.3:26656,1570fd9b344af3bf77ec7eefffe485033f412080@65.109.112.178:26656,a2ad516c5301fb1a9793b0c9bd2195e16721ed73@34.170.18.34:26656"
 
+    sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$SEEDS\"/; s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.archway/config/config.toml
 
-
-
-
-
+### 加入网络
+##### 获得创世文化
+    curl -s https://rpc.constantine-1.archway.tech/genesis |jq -r .result.genesis > ${HOME}/.archway/config/genesis.json
+    
+#####     
 
 
 
