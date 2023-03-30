@@ -141,8 +141,8 @@
     --commission-max-rate="0.10" \
     --commission-max-change-rate="0.01" \
     --min-self-delegation=1 \
-    --fees=200uconst \
-    --from=$WALLET \
+    --fees=5000uconst \
+    --from=$WALLET
 
 
 
