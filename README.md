@@ -123,7 +123,7 @@
 <img width="534" alt="微信截图_20230329165245" src="https://user-images.githubusercontent.com/100336530/228716420-ee7934ef-52fd-4cdf-88d1-180e2eecca0d.png">
 
 ## 成为验证者
-### 创建验证器
+### 相关检查
     节点需完成同步才能操作，如下命令返回FALSE，则节点已同步
     curl -s $NODE/status | jq .result.sync_info.catching_up
     
