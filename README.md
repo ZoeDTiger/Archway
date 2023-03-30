@@ -147,7 +147,10 @@
 
 ## 常用命令
 ##### 解除监禁
-    archwayd tx slashing unjail <ValidatorAddress> --chain-id=constantine-1 --from=<your-wallet-name>
+    archwayd tx slashing unjail --chain-id=constantine-1 --from=<your-wallet-address> --gas auto --fees 3000uconst
+    
+    E.G：
+    archwayd tx slashing unjail --chain-id=constantine-1 --from=archway1a9u2jkg5ajfqax2szy3w4axne369mwlmt3y92a --gas auto --fees 3000uconst
 
 ##### 修改打开的文件数
     Linux 每个进程可以打开的默认文件数为1024，打开的次数超过这个数量，就会导致进程崩溃
