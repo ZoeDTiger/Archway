@@ -23,15 +23,44 @@
     sudo apt-get install build-essential docker-ce docker-ce-cli containerd.io docker-compose-plugin git
     
 ##### 安装Go
+    cd $HOME
+    wget "https://go.dev/dl/go1.19.4.linux-amd64.tar.gz"
+    sudo rm -rf /usr/local/go
+    sudo tar -C /usr/local -zxvf go1.19.4.linux-amd64.tar.gz
 
+    echo "export GOROOT=/usr/local/go" |  sudo tee -a /etc/profile
+    echo "export GOPATH=$HOME/go" |  sudo tee -a /etc/profile
+    echo "export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin" |  sudo tee -a /etc/profile
+    echo "export GO111MODULE=on" |  sudo tee -a /etc/profile
+    echo "export GOPROXY=https://goproxy.cn" |  sudo tee -a /etc/profile
+    source /etc/profile
+    go version
 
+### 节点安装
+#### 源码构建
+    git clone https://github.com/archway-network/archway.git
+    cd archway
+    git fetch
+    git checkout v0.2.0
+    make install
+    
+    archwayd version --long | grep -e version -e commit
+<img width="503" alt="微信截图_20230329154759" src="https://user-images.githubusercontent.com/100336530/228712247-f0372746-61fe-49c0-916f-15a3d8186519.png">
 
+#### 初始化节点
+    MONIKER=your-moniker-name
+    archwayd init $MONIKER --chain-id constantine-1
+    
+    archwayd config chain-id constantine-1
+    archwayd config keyring-backend os
+<img width="859" alt="微信截图_20230329155039" src="https://user-images.githubusercontent.com/100336530/228712637-fe696067-712b-4696-bf95-c75c2ada725b.png">
 
+### 创建账号
+    WALLET=your-key-name
+    archwayd keys add $WALLET
+<img width="475" alt="微信截图_20230329155816" src="https://user-images.githubusercontent.com/100336530/228712950-5728d10e-aef2-48df-a107-9fec6bb3affa.png">
 
-
-
-
-
+### 节点配置
 
 
 
