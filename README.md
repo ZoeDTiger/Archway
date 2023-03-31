@@ -123,6 +123,13 @@
 <img width="534" alt="微信截图_20230329165245" src="https://user-images.githubusercontent.com/100336530/228716420-ee7934ef-52fd-4cdf-88d1-180e2eecca0d.png">
 
 ## 成为验证者
+### 获得测试币
+    加入官方DC：https://discord.gg/archwayhq
+    进入faucet频道
+    输入接水命令：!faucet <wallet-address>
+    每天可领取一次，每次1个
+<img width="806" alt="微信截图_20230331110126" src="https://user-images.githubusercontent.com/100336530/229012149-19e3fb76-4100-48e9-bc31-5824359aa4f4.png">
+    
 ### 相关检查
     节点需完成同步才能操作，如下命令返回FALSE，则节点已同步
     curl -s $NODE/status | jq .result.sync_info.catching_up
