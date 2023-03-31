@@ -127,7 +127,7 @@
     加入官方DC：https://discord.gg/archwayhq
     进入faucet频道
     输入接水命令：!faucet <wallet-address>
-    每天可领取一次，每次1个
+    每天可领取一次，每次获得1个CONST
 <img width="806" alt="微信截图_20230331110126" src="https://user-images.githubusercontent.com/100336530/229012149-19e3fb76-4100-48e9-bc31-5824359aa4f4.png">
     
 ### 相关检查
