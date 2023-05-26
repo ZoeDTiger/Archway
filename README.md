@@ -7,7 +7,7 @@
     2、实验测试网Titus：面向核心 SDK 开发人员的实验性测试网络，用于测试 Archway 网络中的最新功能。
     3、当前测试网Constantine：为构建 dApp 的 dapp 开发人员提供稳定的测试网络。
     
-    目前主要是参与constantine-1测试网，为后期领取用户奖励做好准备。
+    目前主要是参与constantine-3测试网，为后期领取用户奖励做好准备。
 
 ## 运行节点
 ### 先决条件
@@ -49,10 +49,10 @@
 
 #### 初始化节点
     MONIKER=your-moniker-name
-    archwayd init $MONIKER --chain-id constantine-1
+    archwayd init $MONIKER --chain-id constantine-3
     
-    archwayd config chain-id constantine-1
-    archwayd config keyring-backend os
+    archwayd config chain-id constantine-3
+    archwayd config keyring-backend test
 <img width="859" alt="微信截图_20230329155039" src="https://user-images.githubusercontent.com/100336530/228712637-fe696067-712b-4696-bf95-c75c2ada725b.png">
 
 ### 创建账号
@@ -103,9 +103,11 @@
     sed -i.bak -e "s/^inter-block-cache *=.*/inter-block-cache = \"$inter_block_cache\"/"  $HOME/.archway/config/app.toml
 
 #### 配置种子节点与对等对节
-    SEEDS="5c10d3d84adb970474eff3c9b5d8fe50fd2dbbfb@144.76.18.199:26656,802993601906fae95a19e96f2e8bd538b0d209d5@35.222.155.3:26656,1570fd9b344af3bf77ec7eefffe485033f412080@65.109.112.178:26656,a2ad516c5301fb1a9793b0c9bd2195e16721ed73@34.170.18.34:26656"
-
-    sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$SEEDS\"/; s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.archway/config/config.toml
+    SEEDS="3c5bc400c786d8e57ae2b85639273d1aec79829a@34.31.130.235:26656"
+    PEERS="900950a031cb758b761198e52b07fcc17616bd76@archway-testnet.nodejumper.io:40656"
+    
+    sed -i 's|^seeds *=.*|seeds = "'$SEEDS'"|; s|^persistent_peers *=.*|persistent_peers = "'$PEERS'"|' $HOME/.archway/config/config.toml
+    sed -i 's|^prometheus *=.*|prometheus = true|' $HOME/.archway/config/config.toml
 
 ### 加入网络
 ##### 获得创世文化
