@@ -147,7 +147,7 @@
     archwayd tx slashing unjail --chain-id=constantine-3 --from=<your-wallet-address> --gas auto --fees 3000aconst
     
     E.G：
-    archwayd tx slashing unjail --chain-id=constantine-3 --from=archway1a9u2jkg5ajfqax2szy3w4axne369mwlmt3y92a --gas auto --fees 3000aconst
+     archwayd tx slashing unjail --chain-id=constantine-3 --from=archway1fvytam6v3qvxfc3wk8a27tk2s5cye4n7840986 --gas 98000 --fees 100000000000000000aconst -y
 
 ##### 修改打开的文件数
     Linux 每个进程可以打开的默认文件数为1024，打开的次数超过这个数量，就会导致进程崩溃
