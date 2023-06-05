@@ -175,8 +175,14 @@
 ##### 增加担保
     archwayd tx staking delegate <ValidatorAddress> <TOKENS_COUNT>uconst--from $WALLET --fees 5000aconst -y
     
-    E.G.
+    E.G：
     archwayd tx staking delegate archwayvaloper1fvytam6v3qvxfc3wk8a27tk2s5cye4n783x82n 8000000000000000000aconst --from archway1fvytam6v3qvxfc3wk8a27tk2s5cye4n7840986 --fees 180000000000000000aconst -y
+
+##### 转质押
+    archwayd tx staking redelegate [src-validator-addr] [dst-validator-addr] [amount] [flags]
+    
+    E.G：
+    archwayd tx staking redelegate archwayvaloper1fvytam6v3qvxfc3wk8a27tk2s5cye4n783x82n archwayvaloper146vlwzqt4wvc69gmhl39ktd352zy2angyzc5hw 11000000000000000000aconst --gas 300000 --fees 270000000000000000aconst --from=archway1fvytam6v3qvxfc3wk8a27tk2s5cye4n7840986 -y
 
 ##### 取消委托
     archwayd tx staking unbond <ValidatorAddress> <TOKENS_COUNT>uconst --from $WALLET --fees 5000aconst -y
